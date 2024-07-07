@@ -18,11 +18,16 @@ void sort(int a[], int size)
     }
 }
 
+
+
 void main()
 {
     int head,max;
     int q[20],upper[20],lower[20],usize=0,qsize=0,lsize=0;
     int i,total=0;
+
+
+    
 
     printf("ENTER MAX NO OF CYLINDERS : ");
     scanf("%d",&max);
@@ -39,48 +44,48 @@ void main()
         scanf("%d",&q[i]);    
     }
 
-for(i=0;i<qsize;i++)
+    for(i=0;i<qsize;i++)
+    {
+        if(head>q[i])
+        {
+            lower[lsize]=q[i];
+            lsize++;
+        }
+        else
+        {
+            upper[usize]=q[i];
+            usize++;
+        }
+    }
+
+    sort(upper,usize);
+    sort(lower,lsize);
+
+    printf("\nSCAN Disk Scheduling:\n");
+    
+ printf("\nSCAN Disk Scheduling:\n");
+
+for(i = lsize-1; i >= 0; i--)
 {
-    if(q[i]<head)
-    {
-        lower[lsize]=q[i];
-        lsize++;
-    }
-    else
-    {
-        upper[usize]=q[i];
-        usize++;
-    }
+    printf("%d --> ", lower[i]);
+    total += abs(lower[i] - head);
+    head = lower[i];
 }
 
-sort(upper,usize);
-sort(lower,lsize);
-
-for(i=0;i<usize;i++)
+// If the lower array is not empty, then the disk head should move to the 0th position
+if(lsize > 0 && usize > 0)
 {
-    printf("%d--->",upper[i]);
-    total += abs(upper[i]-head);
+    printf("0 --> ");
+    total += head;
+    head = 0;
+}
+
+for(i = 0; i < usize; i++)
+{
+    printf("%d --> ", upper[i]);
+    total += abs(upper[i] - head);
     head = upper[i];
 }
 
-if(usize>0)
-{
-printf("%d-->",max-1);
-total += abs(max - head);
-head = max;
-}
-
-if(lsize>0)
-printf("0-->");
-total += head;
-head = 0;
-
-
-for(i=0;i<lsize;i++)
-{
-    printf("%d--->",lower[i]);
-    total += abs(lower[i]-head);
-    head = lower[i]; 
-}
 printf("Total head movements : %d", total);
 }
