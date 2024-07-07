@@ -62,7 +62,7 @@ void main()
                         break;
                     }
                 }
-                
+
                 if (flag == 0)
                 {
                     fin[y++] = j;
