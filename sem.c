@@ -8,6 +8,7 @@ void main()
     int *p,val,val1;
     int sid;
     key_t key = ftok("sem.c",'1');
+    struct sembuf s[] = {0,-1,0};
     sid=semget(key,50,1,IPC CREAT|0777);
 
     if(sid<0)
